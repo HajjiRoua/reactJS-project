@@ -1,0 +1,32 @@
+import { useState } from 'react';
+import { Grid, Form, Input } from 'semantic-ui-react';
+
+const Search = ({ setSearchedQuery }) => {
+    const [value, setValue] = useState("");
+
+    const onFormSubmit = () => {
+        setSearchedQuery(value);
+    }
+
+    return (
+        <Grid column={2} textAlign="center" className='search-box'>
+            <Grid.Column>
+                <h2 className='search-heading'>
+                <span style={{ color: '#2185D0' }}> FlavorFinder </span>
+                 Explore a World of Flavors 
+                </h2>
+                <h4>Find Your Perfect Recipe with Our Recipe Search</h4>
+                <Form onSubmit={onFormSubmit}>
+                    <Input 
+                        placeholder="type here !!!"
+                        action={{ icon: 'search', color: 'blue' }}
+                        onChange={(e) => setValue(e.target.value)}
+                        value={value}
+                    />
+                </Form>
+            </Grid.Column>
+        </Grid>
+    )
+}
+
+export default Search;

@@ -1,0 +1,52 @@
+.profile-page {
+    max-width: 800px;
+    margin: 80px auto 0; 
+    padding: 40px;
+    background-color: #f8f8f8;
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .profile-name {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .profile-bio {
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .profile-section {
+    margin-bottom: 60px;
+  }
+  
+  .profile-section-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .recipe-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .recipe-item {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #555;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .empty-message {
+    color: #777;
+  }
+  
