@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Grid, Button, Image, Header, Segment, Icon } from 'semantic-ui-react';
-import { getRecipe } from "../services/api";
+import { getRecipe , getFeedbacks, getIngredients} from "../services/api";
 import { Link } from "react-router-dom";
 
 const RecipeDetails = () => {
   const [recipe, setRecipe] = useState({});
   const [feedbacks, setFeedbacks] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -15,20 +16,28 @@ const RecipeDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getRecipe(recipeId);
-      if (result && result.recipe) {
-        setRecipe(result.recipe);
+      if (result) {
+        setRecipe(result);
       }
     };
 
-    // const fetchFeedbacks = async () => {
-    //   const result = await getFeedbacks(recipeId);
-    //   if (result && result.feedbacks) {
-    //     setFeedbacks(result.feedbacks);
-    //   }
-    // };
+    const fetchFeedbacks = async () => {
+      const result = await getFeedbacks(recipeId);
+      if (result)
+        setFeedbacks(result);
+      
+    };
+
+    const fetchIngredients = async () => {
+      const result = await getIngredients(recipeId);
+      if (result)
+        setIngredients(result);
+      
+    };
 
     fetchData();
-    // fetchFeedbacks();
+    fetchFeedbacks();
+    fetchIngredients();
   }, [recipeId]);
 
 // const handleLike = async () => {
@@ -59,8 +68,10 @@ const RecipeDetails = () => {
 
   return (
     Object.keys(recipe).length > 0 ? 
+    
     <Grid container stackable columns={2} className="detailsPageContent">
       <Grid.Column>
+      <Image src={recipe.image_url} />
         {/* <Button 
           as={Link}
           to={'/recipes'}
@@ -68,7 +79,7 @@ const RecipeDetails = () => {
           color="yellow"
           style={{ marginBottom: 40 }}
         />
-        <Image src={recipe.image_url} />
+      
         <Button
           icon
           color={liked ? "red" : "grey"}
@@ -91,9 +102,9 @@ const RecipeDetails = () => {
         </Button> */}
       </Grid.Column>
       <Grid.Column>
-        <Header size="medium">{recipe.title}</Header>
-        <p>Provided By: {recipe.publisher}</p>
-        <Button 
+        <Header size="medium">{recipe.label}</Header>
+        <p>Provided By: {recipe.source}</p>
+        {/* <Button 
           as={"a"}
           href={recipe.publisher_url}
           target="_blank"
@@ -106,27 +117,27 @@ const RecipeDetails = () => {
           target="_blank"
           content="Recipe URL"
           color="green"
-        />
+        /> */}
         <Header size="large" content="Ingredients" />
         <Segment.Group>
           {
-            recipe && recipe.ingredients.map((data, index) => (
-              <Segment key={index}>
-                <h5>{data}</h5>
+            ingredients && ingredients.map((data) => (
+              <Segment key={data.id}>
+                <h5>{data.text}</h5>
               </Segment>
             ))
           }
         </Segment.Group>
         <Header size="large" content="Feedbacks" />
-        {/* <Segment.Group>
+        <Segment.Group>
           {
-            feedbacks && feedbacks.map((feedback, index) => (
-              <Segment key={index}>
-                <p>{feedback}</p>
+            feedbacks && feedbacks.map((feedback) => (
+              <Segment key={feedback.id}>
+                <p>{feedback.comment}</p>
               </Segment>
             ))
           }
-        </Segment.Group> */}
+        </Segment.Group>
       </Grid.Column>
     </Grid> : null
   );

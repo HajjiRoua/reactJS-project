@@ -3,7 +3,7 @@ import { Container, Header, Grid } from "semantic-ui-react";
 import RecipeListItem from "./RecipeListItem";
 
 const RecipeList = ({ recipes, searchedQuery }) => {
-    const recipeData = recipes.recipes;
+    const recipeData = recipes;
     return (
         <Container>
             <Header 

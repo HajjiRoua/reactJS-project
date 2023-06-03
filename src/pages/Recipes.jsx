@@ -12,15 +12,15 @@ const Recipes = () => {
     }, [searchedQuery])
 
     const getSearchedResult = async () => {
-        let result = await getRecipes();
-            setRecipes(result.data);
+        let result = await getRecipes(searchedQuery);
+            setRecipes(result);
     
     }
 
     return (
         <>
             <Search setSearchedQuery={setSearchedQuery} />
-            <RecipeList recipes={recipes} />
+            <RecipeList recipes={recipes} searchedQuery={searchedQuery} />
         </>
     )
 }
